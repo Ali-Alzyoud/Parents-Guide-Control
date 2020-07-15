@@ -30,7 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.vlcControl = new Vlc.DotNet.Forms.VlcControl();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.dataGridView = new System.Windows.Forms.DataGridView();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openVideoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -43,7 +43,7 @@
             this.Age = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.Type = new System.Windows.Forms.DataGridViewComboBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.vlcControl)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -59,18 +59,18 @@
             this.vlcControl.VlcLibDirectory = ((System.IO.DirectoryInfo)(resources.GetObject("vlcControl.VlcLibDirectory")));
             this.vlcControl.VlcMediaplayerOptions = null;
             // 
-            // dataGridView1
+            // dataGridView
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.From,
             this.To,
             this.Age,
             this.Type});
-            this.dataGridView1.Location = new System.Drawing.Point(13, 389);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(759, 160);
-            this.dataGridView1.TabIndex = 1;
+            this.dataGridView.Location = new System.Drawing.Point(13, 389);
+            this.dataGridView.Name = "dataGridView";
+            this.dataGridView.Size = new System.Drawing.Size(759, 160);
+            this.dataGridView.TabIndex = 1;
             // 
             // menuStrip1
             // 
@@ -95,20 +95,21 @@
             // openVideoToolStripMenuItem
             // 
             this.openVideoToolStripMenuItem.Name = "openVideoToolStripMenuItem";
-            this.openVideoToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
+            this.openVideoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.openVideoToolStripMenuItem.Text = "Open Video";
             this.openVideoToolStripMenuItem.Click += new System.EventHandler(this.openVideoToolStripMenuItem_Click);
             // 
             // openAASToolStripMenuItem
             // 
             this.openAASToolStripMenuItem.Name = "openAASToolStripMenuItem";
-            this.openAASToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
+            this.openAASToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.openAASToolStripMenuItem.Text = "Open AAS";
+            this.openAASToolStripMenuItem.Click += new System.EventHandler(this.openAASToolStripMenuItem_Click);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             // 
             // Progress_Play
@@ -143,11 +144,18 @@
             // Age
             // 
             this.Age.HeaderText = "Age";
+            this.Age.Items.AddRange(new object[] {
+            "18",
+            "12"});
             this.Age.Name = "Age";
             // 
             // Type
             // 
             this.Type.HeaderText = "Type";
+            this.Type.Items.AddRange(new object[] {
+            "Violence",
+            "Nudity",
+            "Profanity"});
             this.Type.Name = "Type";
             // 
             // MainForm
@@ -157,7 +165,7 @@
             this.ClientSize = new System.Drawing.Size(784, 561);
             this.Controls.Add(this.Btn_Play);
             this.Controls.Add(this.Progress_Play);
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.dataGridView);
             this.Controls.Add(this.vlcControl);
             this.Controls.Add(this.menuStrip1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
@@ -166,7 +174,7 @@
             this.Text = "ParentGuideEditor";
             this.Load += new System.EventHandler(this.MainForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.vlcControl)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -177,7 +185,7 @@
         #endregion
 
         private Vlc.DotNet.Forms.VlcControl vlcControl;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView dataGridView;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem openVideoToolStripMenuItem;

@@ -18,10 +18,18 @@ namespace ParentGuideEditor
     }
     class ParentGuideRecord
     {
-        public DateTime From { get; set; }
-        public DateTime To { get; set; }
-        public ParentGuideType type { get; set; }
-        public ParentGuideAge age { get; set; }
+        public TimeSpan From { get; set; }
+        public TimeSpan To { get; set; }
+        public ParentGuideType Type { get; set; }
+        public ParentGuideAge Age { get; set; }
+
+        public ParentGuideRecord(TimeSpan from, TimeSpan to, ParentGuideAge age, ParentGuideType type)
+        {
+            this.From = from;
+            this.To = to;
+            this.Age = age;
+            this.Type = type;
+        }
     }
     class ParentGuideClass
     {

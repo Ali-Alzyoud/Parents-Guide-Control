@@ -13,6 +13,7 @@ namespace ParentGuideEditor
     public partial class MainForm : Form
     {
         OpenFileDialog fd_video = new OpenFileDialog();
+        ParentGuideClass guide_object = new ParentGuideClass();
         public MainForm()
         {
             InitializeComponent();
@@ -44,6 +45,14 @@ namespace ParentGuideEditor
             Btn_Play.Enabled = false;
             Progress_Play.Minimum = 0;
             Progress_Play.Maximum = 100;
+
+#warning TESTING
+            guide_object.Records.Add(new ParentGuideRecord(
+                new TimeSpan(0, 0, 0, 0, 0),
+                new TimeSpan(0, 0, 1, 0, 0),
+                ParentGuideAge.Age_18,
+                ParentGuideType.Violence));
+            updateGridView();
         }
 
         private void VlcControl_Stopped(object sender, Vlc.DotNet.Core.VlcMediaPlayerStoppedEventArgs e)
@@ -85,6 +94,48 @@ namespace ParentGuideEditor
             else
             {
                 vlcControl.VlcMediaPlayer.Play();
+            }
+        }
+
+        private string AgeToString(ParentGuideAge age)
+        {
+            switch (age)
+            {
+                case ParentGuideAge.Age_18:
+                    return "18";
+                default:
+                    return "12";
+            }
+        }
+
+        private string TypeToString(ParentGuideType type)
+        {
+            switch (type)
+            {
+                case ParentGuideType.Nudity:
+                    return "Nudity";
+                case ParentGuideType.Profanity:
+                    return "Profanity";
+                default:
+                    return "Violence";
+            }
+        }
+        private void updateGridView()
+        {
+            dataGridView.Rows.Clear();
+            foreach (ParentGuideRecord record in guide_object.Records)
+            {
+                dataGridView.Rows.Add(record.From.ToString(), record.From.ToString(), "18", "Violence");
+            }
+        }
+
+        private void openAASToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (fd_video.ShowDialog() == DialogResult.OK)
+            {
+                string path = fd_video.FileName;
+                guide_object.LoadFromFile(path);
+                updateGridView();
             }
         }
     }
