@@ -70,14 +70,10 @@
                 font-size: 120%;
             }
 
-            input[type=checkbox]
+            input
             {
-            /* Double-sized Checkboxes */
-            -ms-transform: scale(2); /* IE */
-            -moz-transform: scale(2); /* FF */
-            -webkit-transform: scale(2); /* Safari and Chrome */
-            -o-transform: scale(2); /* Opera */
-            padding: 10px;
+                display: inline-block;
+                width: 15%;
             }
 
 
@@ -90,14 +86,14 @@
         <table id="tb_rec">
             <tbody>
                 <tr>
-                    <th>From</th>
-                    <th>To</th>
+                    <th>From (M : S : MS)</th>
+                    <th>To (M : S : MS)</th>
                     <th>Type</th>
                     <th>Age</th>
                 </tr>
                 <tr>
-                    <td><input value="00:00"></input></td>
-                    <td><input value="00:00"></input></td>
+                    <td><input value="00">:<input value="00"></input>:<input value="00"></input></td>
+                    <td><input value="00">:<input value="00"></input>:<input value="00"></input></td>
                     <td>
                         <select name="Type">
                             <option value="Violence">Violence</option>
