@@ -1,118 +1,128 @@
 <html>
-    <head>
-        <script src="ParentGuide.js"></script>
-        <script src="app.js"></script>
-        <style>
-            *{
-                font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-            }
-            #tb_rec {
-                font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-                border-collapse: collapse;
-                width: 50%;
-            }
 
-            #tb_rec td,
-            #tb_rec th {
-                border: 1px solid #ddd;
-                padding: 8px;
-            }
+<head>
+    <script src="ParentGuide.js"></script>
+    <script src="app.js"></script>
+    <style>
+        * {
+            font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+        }
 
-            #tb_rec_total td,
-            #tb_rec th {
-                border: 1px solid rgb(221, 221, 221);
-                padding: 8px;
-            }
+        #tb_rec {
+            font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+            border-collapse: collapse;
+            width: 50%;
+        }
 
+        #tb_rec td,
+        #tb_rec th {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
 
-            #tb_rec tr:nth-child(even) {
-                background-color: #f2f2f2;
-            }
-
-            #tb_rec tr:nth-child(odd) {
-                background-color: #f2f2f2;
-            }
-
-            #tb_rec tr:hover {
-                background-color: #ddd;
-            }
-
-            #tb_rec th {
-                padding-top: 12px;
-                padding-bottom: 12px;
-                text-align: left;
-                background-color: rgb(20, 40, 160);
-                color: white;
-            }
-            body {
-                background: gray;
-            }
-
-            form {
-                display: block;
-                width: 300px;
-                border-style: groove;
-                border-width: 2px;
-                background: lightgray;
-                margin: auto;
-                color: black;
-                border-color: white;
-            }
-
-            #_chBk {
-                -webkit-animation: color-change 5s infinite;
-                -moz-animation: color-change 5s infinite;
-                -o-animation: color-change 5s infinite;
-                -ms-animation: color-change 5s infinite;
-                animation: color-change 5s infinite;
-                font-size: 120%;
-            }
-
-            input
-            {
-                display: inline-block;
-                width: 15%;
-            }
+        #tb_rec_total td,
+        #tb_rec th {
+            border: 1px solid rgb(221, 221, 221);
+            padding: 8px;
+        }
 
 
-        </style>
-    </head>
-    <body>
-        <div style="background: black; width: 640px; height: 480px">
-        <video id="video" width="640" height="480" src="file.mp4" controls>
+        #tb_rec tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        #tb_rec tr:nth-child(odd) {
+            background-color: #f2f2f2;
+        }
+
+        #tb_rec tr:hover {
+            background-color: #ddd;
+        }
+
+        #tb_rec th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: left;
+            background-color: rgb(20, 40, 160);
+            color: white;
+        }
+
+        body {
+            background: gray;
+        }
+
+        form {
+            display: block;
+            width: 300px;
+            border-style: groove;
+            border-width: 2px;
+            background: lightgray;
+            margin: auto;
+            color: black;
+            border-color: white;
+        }
+
+        #_chBk {
+            -webkit-animation: color-change 5s infinite;
+            -moz-animation: color-change 5s infinite;
+            -o-animation: color-change 5s infinite;
+            -ms-animation: color-change 5s infinite;
+            animation: color-change 5s infinite;
+            font-size: 120%;
+        }
+
+        input {
+            display: inline-block;
+            width: 15%;
+        }
+    </style>
+</head>
+
+<body>
+    <div style="background: black; width: 640px; height: 480px">
+        <video id="video" width="640" height="480" src="file.mp4">
         </video>
+        <div style="margin: 0 auto; width: fit-content;margin-top: 5px;">
+            <img id="btn_play" src="play.png"  style="width: 32px;height: 32px;"></img>
+            <div style="width: 32px; display: inline-block;"></div>
+            <img id="btn_stop" src="stop.png" style="width: 32px;height: 32px;"></img>
+            <div style="width: 32px; display: inline-block;"></div>
+            <img id="btn_guide" src="family.png" style="width: 32px;height: 32px;"></img>
+            <br>
+            <label id="lbl_time">000/000</label>
         </div>
-        <br><br>
-        <label>Violence</label>
-        <select name='Type' id="sel_Violence">
-            <option value=Blur selected> Blur </option>
-            <option value=Black> Black </option>
-        </select>
-        <label>Nudity</label>
-        <select name='Type' id="sel_Nudity">
-            <option value=Blur selected> Blur </option>
-            <option value=Black> Black </option>
-        </select>
-        <label>Gore</label>
-        <select name='Type' id="sel_Gore">
-            <option value=Blur selected> Blur </option>
-            <option value=Black> Black </option>
-        </select>
-        <label>Profanity</label>
-        <select name='Type' id="sel_Profanity">
-            <option value=Mute selected> Mute </option>
-            <option value=Beep> Beep </option>
-        </select>
-        <br>
-        <br>
-        <table id="tb_rec">
-            <tbody id = "tb_body">
-            </tbody>
-        </table>
-        <button onclick="add()">** Add ** </button>
-        <br>
-        <br>
-        <textarea id="contentID" type="text/plain" style="width: 320px; height: 320px;">
+    </div>
+    <br><br><br><br>
+    <label>Violence</label>
+    <select name='Type' id="sel_Violence">
+        <option value=Blur selected> Blur </option>
+        <option value=Black> Black </option>
+    </select>
+    <label>Nudity</label>
+    <select name='Type' id="sel_Nudity">
+        <option value=Blur selected> Blur </option>
+        <option value=Black> Black </option>
+    </select>
+    <label>Gore</label>
+    <select name='Type' id="sel_Gore">
+        <option value=Blur selected> Blur </option>
+        <option value=Black> Black </option>
+    </select>
+    <label>Profanity</label>
+    <select name='Type' id="sel_Profanity">
+        <option value=Mute selected> Mute </option>
+        <option value=Beep> Beep </option>
+    </select>
+    <br>
+    <br>
+    <table id="tb_rec">
+        <tbody id="tb_body">
+        </tbody>
+    </table>
+    <button onclick="add()">** Add ** </button>
+    <br>
+    <br>
+    <textarea id="contentID" type="text/plain" style="width: 320px; height: 320px;">
 00:00:05
 00:00:10
 Gore
@@ -123,8 +133,8 @@ Gore
 Nudity
 +18
         </textarea>
-        <button onclick="init()">Reload</button>
-        <button onclick="save()">Save</button>
-    </body>
-</html>
+    <button onclick="init()">Reload</button>
+    <button onclick="save()">Save</button>
+</body>
 
+</html>
