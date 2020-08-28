@@ -79,50 +79,63 @@
 </head>
 
 <body>
-    <div style="background: black; width: 640px; height: 480px">
-        <video id="video" width="640" height="480" src="file.mp4">
-        </video>
-        <div style="margin: 0 auto; width: fit-content;margin-top: 5px;">
-            <img id="btn_play" src="play.png"  style="width: 32px;height: 32px;"></img>
-            <div style="width: 32px; display: inline-block;"></div>
-            <img id="btn_stop" src="stop.png" style="width: 32px;height: 32px;"></img>
-            <div style="width: 32px; display: inline-block;"></div>
-            <img id="btn_guide" src="family.png" style="width: 32px;height: 32px;"></img>
-            <br>
-            <label id="lbl_time">000/000</label>
+    <div>
+        <div style="background: black; width: 640px; height: 480px">
+            <video id="video" width="640" height="480" src="file.mp4">
+            </video>
+            <div style="margin: 0 auto; width: fit-content;margin-top: 5px;">
+                <img id="btn_play" src="play.png" style="width: 32px;height: 32px;"></img>
+                <div style="width: 32px; display: inline-block;"></div>
+                <img id="btn_stop" src="stop.png" style="width: 32px;height: 32px;"></img>
+                <div style="width: 32px; display: inline-block;"></div>
+                <img id="btn_guide" src="family.png" style="width: 32px;height: 32px;"></img>
+                <br>
+            </div>
+            <ps id="lbl_time" style="display: block; text-align: center;">000/000</ps>
         </div>
     </div>
     <br><br><br><br>
-    <label>Violence</label>
-    <select name='Type' id="sel_Violence">
-        <option value=Blur selected> Blur </option>
-        <option value=Black> Black </option>
-    </select>
-    <label>Nudity</label>
-    <select name='Type' id="sel_Nudity">
-        <option value=Blur selected> Blur </option>
-        <option value=Black> Black </option>
-    </select>
-    <label>Gore</label>
-    <select name='Type' id="sel_Gore">
-        <option value=Blur selected> Blur </option>
-        <option value=Black> Black </option>
-    </select>
-    <label>Profanity</label>
-    <select name='Type' id="sel_Profanity">
-        <option value=Mute selected> Mute </option>
-        <option value=Beep> Beep </option>
-    </select>
-    <br>
-    <br>
-    <table id="tb_rec">
-        <tbody id="tb_body">
-        </tbody>
-    </table>
-    <button onclick="add()">** Add ** </button>
-    <br>
-    <br>
-    <textarea id="contentID" type="text/plain" style="width: 320px; height: 320px;">
+    <img id="btn_control" src="settings.png" style="width: 48px;height: 48px; opacity: 50%;"></img>
+    <img id="btn_edit" src="edit.png" style="width: 48px;height: 48px; opacity: 50%;"></img>
+    <img id="btn_document" src="document.png" style="width: 48px;height: 48px; opacity: 50%;"></img>
+    <div id="div_control" style="display: none;">
+        <br>
+        <br>
+        <label>Violence</label>
+        <select name='Type' id="sel_Violence">
+            <option value=Blur selected> Blur </option>
+            <option value=Black> Black </option>
+        </select>
+        <label>Nudity</label>
+        <select name='Type' id="sel_Nudity">
+            <option value=Blur selected> Blur </option>
+            <option value=Black> Black </option>
+        </select>
+        <label>Gore</label>
+        <select name='Type' id="sel_Gore">
+            <option value=Blur selected> Blur </option>
+            <option value=Black> Black </option>
+        </select>
+        <label>Profanity</label>
+        <select name='Type' id="sel_Profanity">
+            <option value=Mute selected> Mute </option>
+            <option value=Beep> Beep </option>
+        </select>
+        <br>
+    </div>
+    <div id="div_tb" style="display: none;">
+        <br>
+        <br>
+        <table id="tb_rec">
+            <tbody id="tb_body">
+            </tbody>
+        </table>
+        <button onclick="add()">** Add ** </button>
+    </div>
+    <div id="div_document" style="display: none;">
+        <br>
+        <br>
+        <textarea id="contentID" type="text/plain" style="width: 320px; height: 320px;">
 00:00:05
 00:00:10
 Gore
@@ -133,8 +146,9 @@ Gore
 Nudity
 +18
         </textarea>
-    <button onclick="init()">Reload</button>
-    <button onclick="save()">Save</button>
+        <button onclick="init()">Reload</button>
+        <button onclick="save()">Save</button>
+    </div>
 </body>
 
 </html>
