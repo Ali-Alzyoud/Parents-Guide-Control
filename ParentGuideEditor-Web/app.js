@@ -17,6 +17,30 @@ var edit_file = false;
 var edit_control = false;
 var UI_UPDATE = false;
 
+const ACTIONS = {
+    BLUR: '-webkit-filter: blur(10px);',
+    BLACK: '-webkit-filter: opacity(0%);',
+    SKIP: 'SKIP'
+};
+
+function ACTION_from_string(str){
+    if(str == "Blur")
+      return ACTIONS.BLUR;
+    if(str == "Black")
+      return ACTIONS.BLACK;
+    return ACTIONS.SKIP;
+}
+
+function ACTION_apply(video, action, record){
+    if(action === ACTIONS.SKIP){
+        video.currentTime = record.endTime() + 0.01;
+        return false;
+    }
+    else
+        video.style = action;
+    return true;
+}
+
 document.addEventListener('DOMContentLoaded', function (event) {
     init();
     var video = document.getElementById("video");
@@ -37,9 +61,10 @@ document.addEventListener('DOMContentLoaded', function (event) {
         video.volume = 1.0;
     }
     setInterval(function () {
-        var violence = (document.getElementById("sel_Violence").value == "Blur") ? '-webkit-filter: blur(10px);' : '-webkit-filter: opacity(0%);';
-        var nudity = (document.getElementById("sel_Nudity").value == "Blur") ? '-webkit-filter: blur(10px);' : '-webkit-filter: opacity(0%);';
-        var gore = (document.getElementById("sel_Gore").value == "Blur") ? '-webkit-filter: blur(10px);' : '-webkit-filter: opacity(0%);';
+
+        var violence = ACTION_from_string(document.getElementById("sel_Violence").value);
+        var nudity = ACTION_from_string(document.getElementById("sel_Nudity").value);
+        var gore = ACTION_from_string(document.getElementById("sel_Gore").value);
 
         if (parentGuideClass && guide_state === GUIDE_STATE.ON) {
             var records = parentGuideClass.getRecordsAtTime(video.currentTime);
@@ -48,15 +73,16 @@ document.addEventListener('DOMContentLoaded', function (event) {
                 video.style = '';
                 for (var i = 0; i < records.length; i++) {
                     var record = records[i];
+                    var update = true;
                     if (record.Type == ParentGuideType.Violence)
-                        video.style = violence;
+                        update = ACTION_apply(video, violence, record);
                     else if (record.Type == ParentGuideType.Nudity)
-                        video.style = nudity;
+                        update = ACTION_apply(video, nudity, record);
                     else if (record.Type == ParentGuideType.Gore)
-                        video.style = gore;
+                        update = ACTION_apply(video, gore, record);
                     else if (record.Type == ParentGuideType.Profanity)
                         video.volume = 0.0;
-                    if (!lbl_video.innerText.includes(record.Type))
+                    if (!lbl_video.innerText.includes(record.Type) && update)
                         lbl_video.innerText += record.Type + "\n";
                 }
             }
@@ -168,7 +194,10 @@ function init() {
     tb_body.innerHTML = td + parentGuideClass.toHTML();
     document.querySelectorAll("input").forEach(function (a) {
         a.onchange = update;
-    })
+    });
+    document.querySelectorAll("select:not(.action)").forEach(function (a) {
+        a.onchange = update;
+    });
     UI_UPDATE = false;
 }
 
@@ -196,7 +225,10 @@ function add() {
     tb_body.innerHTML = td + parentGuideClass.toHTML();
     document.querySelectorAll("input").forEach(function (a) {
         a.onchange = update;
-    })
+    });
+    document.querySelectorAll("select:not(.action)").forEach(function (a) {
+        a.onchange = update;
+    });
     UI_UPDATE = false;
 }
 
@@ -216,7 +248,10 @@ function remove() {
     tb_body.innerHTML = td + parentGuideClass.toHTML();
     document.querySelectorAll("input").forEach(function (a) {
         a.onchange = update;
-    })
+    });
+    document.querySelectorAll("select:not(.action)").forEach(function (a) {
+        a.onchange = update;
+    });
     UI_UPDATE = false;
 }
 

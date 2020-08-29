@@ -150,6 +150,12 @@ ParentGuideRecord.prototype.containTime = function(time){
     return false;
 }
 
+ParentGuideRecord.prototype.endTime = function(){
+    var toArray = this.To.split(":");
+    var toTime = Number(toArray[0])*60*60 + Number(toArray[1])*60 + Number(toArray[2]);
+    return toTime;
+}
+
 ParentGuideRecord.prototype.toHTML = function(){
     var str = "";
     str += "<tr>";
