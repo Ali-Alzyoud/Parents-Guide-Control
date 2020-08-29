@@ -260,3 +260,15 @@ ParentGuideClass.prototype.getRecordAtTime = function(time){
     }
     return null;
 }
+
+ParentGuideClass.prototype.getRecordsAtTime = function(time){
+    //FIXME save data in order, then binary search
+    var ret=[];
+    for(var i = 0 ; i < this.Records.length; i++)
+    {
+        var record = this.Records[i];
+        if (record.containTime(time))
+        ret.push(record);
+    }
+    return ret;
+}
