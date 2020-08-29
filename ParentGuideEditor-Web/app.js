@@ -15,6 +15,7 @@ var guide_state = GUIDE_STATE.ON;
 var edit_table = false;
 var edit_file = false;
 var edit_control = false;
+var UI_UPDATE = false;
 
 document.addEventListener('DOMContentLoaded', function(event){
     init();
@@ -29,15 +30,21 @@ document.addEventListener('DOMContentLoaded', function(event){
     var div_tb = document.getElementById("div_tb");
     var div_document = document.getElementById("div_document");
     var div_control = document.getElementById("div_control");
+    var lbl_video = document.getElementById("lbl_video");
+    function video_reset(){
+        video.style = '';
+        lbl_video.innerText = "";
+        video.volume = 1.0;
+    }
     setInterval(function(){
-        var violence = (document.getElementById("sel_Violence").value == "Blur") ? '-webkit-filter: blur(5px);' : '-webkit-filter: opacity(0%);';
-        var nudity = (document.getElementById("sel_Nudity").value == "Blur") ? '-webkit-filter: blur(5px);' : '-webkit-filter: opacity(0%);';
-        var gore = (document.getElementById("sel_Gore").value == "Blur") ? '-webkit-filter: blur(5px);' : '-webkit-filter: opacity(0%);';
-        var profanity = document.getElementById("sel_Profanity").value;
+        var violence = (document.getElementById("sel_Violence").value == "Blur") ? '-webkit-filter: blur(10px);' : '-webkit-filter: opacity(0%);';
+        var nudity = (document.getElementById("sel_Nudity").value == "Blur") ? '-webkit-filter: blur(10px);' : '-webkit-filter: opacity(0%);';
+        var gore = (document.getElementById("sel_Gore").value == "Blur") ? '-webkit-filter: blur(10px);' : '-webkit-filter: opacity(0%);';
 
         if (parentGuideClass && guide_state === GUIDE_STATE.ON){
             var record = parentGuideClass.getRecordAtTime(video.currentTime);
             if (record){
+                video_reset();
                 if (record.Type == ParentGuideType.Violence)
                     video.style = violence;
                 else if (record.Type == ParentGuideType.Nudity)
@@ -45,20 +52,33 @@ document.addEventListener('DOMContentLoaded', function(event){
                 else if (record.Type == ParentGuideType.Gore)
                     video.style = gore;
                 else if (record.Type == ParentGuideType.Profanity)
-                    video.style = profanity;
+                    video.volume = 0.0;
+                if(lbl_video.innerText != record.Type)
+                lbl_video.innerText = record.Type;
             }
-            else
-                video.style = '';
+            else{
+                video_reset();
+            }
         }
-        var x1 = Math.floor(video.duration);
-        var x2 = Math.floor(video.currentTime);
-        lbl.innerText = "";
-        if(x1 < 10) lbl.innerText+="00";
-        else if (x1 < 100) lbl.innerText+="0";
-        lbl.innerText += x1  + " / ";
-        if(x2 < 10) lbl.innerText+="00";
-        else if (x2 < 100) lbl.innerText+="0";
-        lbl.innerText += x2;
+        var mm1 = Math.floor(video.duration/60);
+        var ss1 = Math.floor(video.duration%60);
+        var mm2 = Math.floor(video.currentTime/60);
+        var ss2 = Math.floor(video.currentTime%60);
+        var innerText = "";
+        if(mm1 < 10) innerText+="0";
+        innerText += mm1;
+        innerText += ":";
+        if(ss1 < 10) innerText+="0";
+        innerText += ss1;
+
+        innerText += " / ";
+
+        if(mm2 < 10) innerText+="0";
+        innerText += mm2;
+        innerText += ":";
+        if(ss2 < 10) innerText+="0";
+        innerText += ss2;
+        lbl.innerText = innerText;
     }, 100);
     video.addEventListener("pause", function(){
         video_state = VIDEO_STATE.PAUSE;
@@ -84,7 +104,7 @@ document.addEventListener('DOMContentLoaded', function(event){
         video.currentTime = 0;
     });
     guide.addEventListener("click", function(){
-        video.style = '';
+        video_reset();
         if (guide_state == GUIDE_STATE.ON){
             guide_state = GUIDE_STATE.OFF;
             guide.style.opacity = "50%";
@@ -129,8 +149,8 @@ document.addEventListener('DOMContentLoaded', function(event){
     });
 });
 
-
 function init(){
+    UI_UPDATE = true;
     var contentFile = document.getElementById("contentID");
     var tb_body = document.getElementById("tb_body");
     parentGuideClass = new ParentGuideClass();
@@ -142,6 +162,10 @@ function init(){
     "<th>Age</th>"+
     "</tr>";
     tb_body.innerHTML = td + parentGuideClass.toHTML();
+    document.querySelectorAll("input").forEach(function(a){
+        a.onchange = update;
+    })
+    UI_UPDATE = false;
 }
 
 function save(){
@@ -153,16 +177,47 @@ function save(){
 }
 
 function add(){
+    UI_UPDATE = true;
     var contentFile = document.getElementById("contentID");
     var tb_body = document.getElementById("tb_body");
     parentGuideClass = new ParentGuideClass();
     parentGuideClass.fromHTML(tb_body);
     parentGuideClass.Records.push(new ParentGuideRecord());
     var td = "<tr>"+
-    "<th>From (M : S : MS)</th>"+
-    "<th>To (M : S : MS)</th>"+
+    "<th>From (HH : MM : SS)</th>"+
+    "<th>To (HH : MM : SS)</th>"+
     "<th>Type</th>"+
     "<th>Age</th>"+
     "</tr>";
     tb_body.innerHTML = td + parentGuideClass.toHTML();
+    document.querySelectorAll("input").forEach(function(a){
+        a.onchange = update;
+    })
+    UI_UPDATE = false;
+}
+
+function remove(){
+    UI_UPDATE = true;
+    var contentFile = document.getElementById("contentID");
+    var tb_body = document.getElementById("tb_body");
+    parentGuideClass = new ParentGuideClass();
+    parentGuideClass.fromHTML(tb_body);
+    parentGuideClass.Records.pop();
+    var td = "<tr>"+
+    "<th>From (HH : MM : SS)</th>"+
+    "<th>To (HH : MM : SS)</th>"+
+    "<th>Type</th>"+
+    "<th>Age</th>"+
+    "</tr>";
+    tb_body.innerHTML = td + parentGuideClass.toHTML();
+    document.querySelectorAll("input").forEach(function(a){
+        a.onchange = update;
+    })
+    UI_UPDATE = false;
+}
+
+function update(){
+    if(UI_UPDATE) return;
+    parentGuideClass = new ParentGuideClass();
+    parentGuideClass.fromHTML(tb_body);
 }

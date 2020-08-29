@@ -47,6 +47,26 @@
             color: white;
         }
 
+        .special_element1 {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: center;
+            background-color: rgb(20, 40, 160);
+            color: white;
+            width: 100px;
+            margin-top: 5px;
+        }
+
+        .special_element2 {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: center;
+            background-color: rgb(160, 40, 20);
+            color: white;
+            width: 100px;
+            margin-top: 5px;
+        }
+
         body {
             background: gray;
         }
@@ -80,9 +100,14 @@
 
 <body>
     <div>
-        <div style="background: black; width: 640px; height: 480px">
-            <video id="video" width="640" height="480" src="file.mp4">
-            </video>
+        <div style="margin: 0 auto;width: 640px;">
+            <ps id="lbl_video"
+                style="position: absolute; top: 40%;left: 0%;right: 0%;color: white;text-align: center; font-size: 200%;z-index: 5;">
+            </ps>
+            <div style="background: black; width: 640px; height: 480px">
+                <video id="video" width="640" height="480" src="sample.mov">
+                </video>
+            </div>
             <div style="margin: 0 auto; width: fit-content;margin-top: 5px;">
                 <img id="btn_play" src="play.png" style="width: 32px;height: 32px;"></img>
                 <div style="width: 32px; display: inline-block;"></div>
@@ -91,63 +116,79 @@
                 <img id="btn_guide" src="family.png" style="width: 32px;height: 32px;"></img>
                 <br>
             </div>
-            <ps id="lbl_time" style="display: block; text-align: center;">000/000</ps>
+            <br>
+            <ps id="lbl_time" style="display: block; text-align: center;"></ps>
         </div>
-    </div>
-    <br><br><br><br>
-    <img id="btn_control" src="settings.png" style="width: 48px;height: 48px; opacity: 50%;"></img>
-    <img id="btn_edit" src="edit.png" style="width: 48px;height: 48px; opacity: 50%;"></img>
-    <img id="btn_document" src="document.png" style="width: 48px;height: 48px; opacity: 50%;"></img>
-    <div id="div_control" style="display: none;">
-        <br>
-        <br>
-        <label>Violence</label>
-        <select name='Type' id="sel_Violence">
-            <option value=Blur selected> Blur </option>
-            <option value=Black> Black </option>
-        </select>
-        <label>Nudity</label>
-        <select name='Type' id="sel_Nudity">
-            <option value=Blur selected> Blur </option>
-            <option value=Black> Black </option>
-        </select>
-        <label>Gore</label>
-        <select name='Type' id="sel_Gore">
-            <option value=Blur selected> Blur </option>
-            <option value=Black> Black </option>
-        </select>
-        <label>Profanity</label>
-        <select name='Type' id="sel_Profanity">
-            <option value=Mute selected> Mute </option>
-            <option value=Beep> Beep </option>
-        </select>
-        <br>
-    </div>
-    <div id="div_tb" style="display: none;">
-        <br>
-        <br>
-        <table id="tb_rec">
-            <tbody id="tb_body">
-            </tbody>
-        </table>
-        <button onclick="add()">** Add ** </button>
-    </div>
-    <div id="div_document" style="display: none;">
-        <br>
-        <br>
-        <textarea id="contentID" type="text/plain" style="width: 320px; height: 320px;">
-00:00:05
-00:00:10
-Gore
-+12
+        <br><br>
+        <div style="margin: 0 auto; width: fit-content;margin-top: 5px;">
+            <img id="btn_control" src="settings.png" style="width: 48px;height: 48px; opacity: 50%;"></img>
+            <img id="btn_edit" src="edit.png" style="width: 48px;height: 48px; opacity: 50%;"></img>
+            <img id="btn_document" src="document.png"
+                style="width: 48px;height: 48px; opacity: 50%; display: none;"></img>
+        </div>
+        <div id="div_control" style="display: none; margin: 0 auto;width: fit-content;">
+            <br>
+            <br>
+            <label>Violence</label>
+            <select name='Type' id="sel_Violence">
+                <option value=Blur selected> Blur </option>
+                <option value=Black> Black </option>
+            </select>
+            <label>Nudity</label>
+            <select name='Type' id="sel_Nudity">
+                <option value=Blur> Blur </option>
+                <option value=Black selected> Black </option>
+            </select>
+            <label>Gore</label>
+            <select name='Type' id="sel_Gore">
+                <option value=Blur selected> Blur </option>
+                <option value=Black> Black </option>
+            </select>
+            <label>Profanity</label>
+            <select name='Type' id="sel_Profanity">
+                <option value=Mute selected> Mute </option>
+            </select>
+            <br>
+        </div>
+        <div id="div_tb" style="display: none; margin: 0 auto;width: fit-content;">
+            <br>
+            <br>
+            <table id="tb_rec" style="width: 640px;">
+                <tbody id="tb_body">
+                </tbody>
+            </table>
+            <div style="margin: 0 auto;width: fit-content;">
+                <button onclick="add()" class="special_element1">** Add ** </button>
+                <button onclick="remove()" class="special_element2">** Remove ** </button>
+            </div>
+        </div>
+        <div id="div_document" style="display: none; margin: 0 auto;width: fit-content;">
+            <br>
+            <br>
+            <textarea id="contentID" type="text/plain" style="width: 320px; height: 320px;">
+00:00:04
+00:00:8
+Violence
++18
 
-00:00:15
+00:00:12
+00:00:16
+Profanity
++18
+
 00:00:20
+00:00:24
 Nudity
 +18
+
+00:00:26
+00:00:29
+Gore
++18
         </textarea>
-        <button onclick="init()">Reload</button>
-        <button onclick="save()">Save</button>
+            <button onclick="init()">Reload</button>
+            <button onclick="save()">Save</button>
+        </div>
     </div>
 </body>
 
